@@ -40,4 +40,9 @@ public class FacultyController {
     public void deleteFaculty ( @RequestParam("key") Long facultyKey ) {
         facultyService.deleteFaculty(facultyKey);
     }
+
+    @GetMapping
+    public String findLongestFacultyName (){
+        return facultyService.findLongestFacultyName();
+    }
 }

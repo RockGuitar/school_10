@@ -41,5 +41,15 @@ public class StudentController {
     public void deleteStudent ( @RequestParam("key") Long studentKey ) {
         studentService.deleteStudent(studentKey);
     }
+
+    @GetMapping
+    public Collection<Student> getStudentsLetterA () {
+        return studentService.getStudentsWithFirstLetterAsA();
+    }
+
+    @GetMapping("/average-age")
+    public double getStudentsAverageAge(){
+        return studentService.getAverageAge();
+    }
 }
 

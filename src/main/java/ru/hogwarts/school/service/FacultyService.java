@@ -19,5 +19,7 @@ public interface FacultyService {
 
     Faculty findFacultyByColorOrNameIgnoreCase ( String color, String name );
 
+    String findLongestFacultyName();
+
 
 }

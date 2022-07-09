@@ -5,6 +5,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.repository.FacultyRepository;
+import java.util.Comparator;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -41,5 +45,10 @@ public class FacultyServiceImpl implements FacultyService {
     public Faculty findFacultyByColorOrNameIgnoreCase ( String color, String name ) {
         facultyLogger.info("Вызван метод для поиска факультета по цвету или имени без учета регистра");
         return facultyRepository.findFacultyByColorOrNameIgnoreCase(color, name);
+    }
+
+    public String findLongestFacultyName () {
+        List<String> facultyNames = facultyRepository.findAll().stream().map(f->f.getName()).collect(Collectors.toList());
+        return facultyNames.stream().collect(Collectors.maxBy(Comparator.comparingInt(String::length))).get();
     }
 }

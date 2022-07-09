@@ -18,4 +18,8 @@ public interface StudentService {
     void deleteStudent ( Long id );
 
     Collection<Student> findByAgeBetween ( int min, int max );
+
+    Collection<Student> getStudentsWithFirstLetterAsA ();
+
+    public double getAverageAge ();
 }
