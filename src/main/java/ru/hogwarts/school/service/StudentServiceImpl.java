@@ -4,10 +4,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import ru.hogwarts.school.model.Student;
+import ru.hogwarts.school.model.StudentComparator;
 import ru.hogwarts.school.repository.StudentRepository;
 
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class StudentServiceImpl implements StudentService {
@@ -58,6 +61,20 @@ public class StudentServiceImpl implements StudentService {
     public List<Student> getLastFiveStudents () {
         studentLogger.info("Вызван метод для вывода последних пяти студентов");
         return studentRepository.getLastFiveStudents();
+    }
+
+    public Collection<Student> getStudentsWithFirstLetterAsA () {
+        return studentRepository.findAll().stream()
+                .parallel()
+                .filter(student -> student.getName().startsWith("S"))
+                .sorted(new StudentComparator())
+                .collect(Collectors.toList());
+    }
+
+    public double getAverageAge () {
+        return studentRepository.findAll().stream()
+                .parallel()
+                .collect(Collectors.averagingDouble(student -> student.getAge()));
     }
 
 
